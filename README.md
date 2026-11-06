@@ -1,4 +1,4 @@
-﻿# spooky-eaf
+# spooky-eaf
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![Python](https://img.shields.io/badge/python-3.13-blue)
@@ -166,15 +166,15 @@ For every recovered image frame:
 
 ```text
 EAF frame
-   â†“
+   v
 _S parsing
-   â†“
+   v
 RLE decompression
-   â†“
+   v
 palette expansion
-   â†“
+   v
 RGBA bytes
-   â†“
+   v
 SHA-256 comparison
 ```
 
@@ -309,8 +309,8 @@ The release process produces:
 
 ```text
 dist/
-â”œâ”€â”€ spooky_eaf-0.1.0-py3-none-any.whl
-â””â”€â”€ spooky_eaf-0.1.0.tar.gz
+|-- spooky_eaf-0.1.0-py3-none-any.whl
+`-- spooky_eaf-0.1.0.tar.gz
 ```
 
 ## Release Packaging
