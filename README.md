@@ -1,43 +1,37 @@
-## \# spooky-eaf
+﻿# spooky-eaf
 
-## 
+![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Python](https://img.shields.io/badge/python-3.13-blue)
+![Tests](https://img.shields.io/badge/tests-41%2F41%20passing-brightgreen)
+![Platform](https://img.shields.io/badge/platform-ESP32--S3-purple)
 
-## !\[Version](https://img.shields.io/badge/version-0.1.0-blue)
+**Version:** 0.1.0
+**Status:** 12/12 recovered Spooky EAF containers validated | 41/41 project-local regression tests passing
 
-## !\[Python](https://img.shields.io/badge/python-3.13-blue)
+`spooky-eaf` is a Python command-line tool for inspecting, scanning, decoding, and recovering EAF animation assets.
 
-## !\[Tests](https://img.shields.io/badge/tests-41%2F41%20passing-brightgreen)
-
-## !\[Platform](https://img.shields.io/badge/platform-ESP32--S3-purple)
-
-## 
-
-## \*\*Version:\*\* 0.1.0
-
-## 
+The project grew out of the recovery of animation data from `spooky-assets.bin` and packages the validated decoding logic into a reusable CLI.
 
 ## Features
 
-* Scan binary asset images for checksum-valid EAF containers
-* Inspect EAF frame counts, dimensions, and observed frame types
-* Validate container checksums and frame boundaries
-* Decode the 8-bit indexed `\_S` frames found in the recovered Spooky assets
-* Decode the RLE image blocks used by the recovered animation set
-* Expand BGRA palette entries into RGBA image data
-* Export decoded frames as PNG
-* Assemble decoded frames into animated GIF files
-* Parse the observed `\_C` converter metadata structure
-* Report truncated or malformed `\_C` metadata without treating it as image data
-* Produce human-readable or JSON EAF scan results
-
-
+- Scan binary asset images for checksum-valid EAF containers
+- Inspect EAF frame counts, dimensions, and observed frame types
+- Validate container checksums and frame boundaries
+- Decode the 8-bit indexed `_S` frames found in the recovered Spooky assets
+- Decode the RLE image blocks used by the recovered animation set
+- Expand BGRA palette entries into RGBA image data
+- Export decoded frames as PNG
+- Assemble decoded frames into animated GIF files
+- Parse the observed `_C` converter metadata structure
+- Report truncated or malformed `_C` metadata without treating it as image data
+- Produce human-readable or JSON EAF scan results
 
 ## Installation
 
 Install the wheel:
 
 ```powershell
-python -m pip install spooky\_eaf-0.1.0-py3-none-any.whl
+python -m pip install spooky_eaf-0.1.0-py3-none-any.whl
 ```
 
 For development, install the source tree in editable mode:
@@ -52,13 +46,9 @@ After installation:
 spooky-eaf --help
 ```
 
-
-
 ## CLI Commands
 
 ### Inspect an EAF
-
-
 
 ```powershell
 spooky-eaf inspect animation.eaf
@@ -70,14 +60,12 @@ Example output from the recovered Happy animation:
 Format: EAF
 Frames: 43
 Checksum: VALID
-Frame types: {'\_S': 42, '\_C': 1}
+Frame types: {'_S': 42, '_C': 1}
 Dimensions: 125x160
-Metadata: 'online convert 0.1.4\_2025-09-01' valid=True
+Metadata: 'online convert 0.1.4_2025-09-01' valid=True
 ```
 
 ### Scan a binary for EAF containers
-
-
 
 ```powershell
 spooky-eaf scan spooky-assets.bin
@@ -91,8 +79,6 @@ spooky-eaf scan spooky-assets.bin --json
 
 ### Decode an EAF
 
-
-
 ```powershell
 spooky-eaf decode animation.eaf -o recovered --fps 20
 ```
@@ -105,42 +91,38 @@ recovered/frames/
 
 and generates an animated GIF using the requested frame rate.
 
-
-
-### Inspect `\_C` metadata
-
-
+### Inspect `_C` metadata
 
 ```powershell
 spooky-eaf metadata animation.eaf
 ```
 
-For the recovered Spooky files containing `\_C` metadata, the observed converter string is:
+For the recovered Spooky files containing `_C` metadata, the observed converter string is:
 
 ```text
-online convert 0.1.4\_2025-09-01
+online convert 0.1.4_2025-09-01
 ```
 
 ## Validated Spooky Animation Set
 
 v0.1.0 was tested against 12 EAF containers recovered from the Spooky asset image:
 
-|Animation|Container Frames|Decoded `\_S` Frames|Dimensions|
-|-|-:|-:|-:|
-|Happy|43|42|125x160|
-|Sad|97|96|125x160|
-|angry|51|50|125x160|
-|battery\_connected|41|41|125x160|
-|confused|78|77|125x160|
-|cry|44|43|125x160|
-|listen|51|50|100x46|
-|low\_battery|48|48|125x160|
-|neutral|89|88|125x160|
-|shocked|35|34|125x160|
-|sleep|119|118|125x160|
-|winking|15|14|125x160|
+| Animation | Container Frames | Decoded `_S` Frames | Dimensions |
+|---|---:|---:|---:|
+| Happy | 43 | 42 | 125x160 |
+| Sad | 97 | 96 | 125x160 |
+| angry | 51 | 50 | 125x160 |
+| battery_connected | 41 | 41 | 125x160 |
+| confused | 78 | 77 | 125x160 |
+| cry | 44 | 43 | 125x160 |
+| listen | 51 | 50 | 100x46 |
+| low_battery | 48 | 48 | 125x160 |
+| neutral | 89 | 88 | 125x160 |
+| shocked | 35 | 34 | 125x160 |
+| sleep | 119 | 118 | 125x160 |
+| winking | 15 | 14 | 125x160 |
 
-Ten of these containers include one `\_C` metadata record. `battery\_connected` and `low\_battery` contain only the recovered image records.
+Ten of these containers include one `_C` metadata record. `battery_connected` and `low_battery` contain only the recovered image records.
 
 ## Regression Testing
 
@@ -163,18 +145,18 @@ Final recorded validation run:
 
 The regression suite exercises:
 
-* RLE decompression
-* Valid `\_C` metadata parsing
-* EAF container discovery
-* Container checksum validation
-* Frame-table parsing
-* `\_S` frame decoding
-* Recovered dimensions and pixel counts
-* All 12 recovered Spooky EAF containers
-* Known converter metadata
-* Per-frame decoded RGBA comparisons
-* Aggregate animation pixel-sequence comparisons
-* Wheel-installed CLI metadata verification
+- RLE decompression
+- Valid `_C` metadata parsing
+- EAF container discovery
+- Container checksum validation
+- Frame-table parsing
+- `_S` frame decoding
+- Recovered dimensions and pixel counts
+- All 12 recovered Spooky EAF containers
+- Known converter metadata
+- Per-frame decoded RGBA comparisons
+- Aggregate animation pixel-sequence comparisons
+- Wheel-installed CLI metadata verification
 
 ## Pixel-Level Regression
 
@@ -184,15 +166,15 @@ For every recovered image frame:
 
 ```text
 EAF frame
-   ↓
-\_S parsing
-   ↓
+   â†“
+_S parsing
+   â†“
 RLE decompression
-   ↓
+   â†“
 palette expansion
-   ↓
+   â†“
 RGBA bytes
-   ↓
+   â†“
 SHA-256 comparison
 ```
 
@@ -205,10 +187,10 @@ The tests also construct an aggregate pixel-sequence digest for each animation s
 The source distribution includes:
 
 ```text
-tests/test\_cli.py
-tests/test\_core.py
-tests/test\_pixel\_hashes.py
-tests/test\_real\_assets.py
+tests/test_cli.py
+tests/test_core.py
+tests/test_pixel_hashes.py
+tests/test_real_assets.py
 ```
 
 Some real-asset regression tests depend on the locally recovered Spooky binary, reference PNG files, and project-specific Windows paths.
@@ -221,15 +203,13 @@ The v0.1.0 wheel was installed into a clean Python 3.13 virtual environment.
 
 The wheel-installed CLI successfully:
 
-* displayed command help
-* inspected `Happy.full.eaf`
-* validated its EAF checksum
-* identified 42 `\_S` frames and one `\_C` record
-* reported its 125x160 dimensions
-* parsed its converter metadata
-* passed the installed metadata-command integration test
-
-
+- displayed command help
+- inspected `Happy.full.eaf`
+- validated its EAF checksum
+- identified 42 `_S` frames and one `_C` record
+- reported its 125x160 dimensions
+- parsed its converter metadata
+- passed the installed metadata-command integration test
 
 ## Observed EAF Container Structure
 
@@ -249,8 +229,8 @@ Offset  Size     Description
 Each observed frame-table entry contains:
 
 ```text
-uint32 frame\_size
-uint32 frame\_offset
+uint32 frame_size
+uint32 frame_offset
 ```
 
 Recovered frames begin with the marker:
@@ -261,47 +241,41 @@ Recovered frames begin with the marker:
 
 followed by the frame payload.
 
+## `_S` Image Records
 
+The recovered Spooky `_S` image records tested for v0.1.0 use:
 
-## `\_S` Image Records
-
-The recovered Spooky `\_S` image records tested for v0.1.0 use:
-
-* 8-bit indexed color
-* 256-entry palettes
-* four stored bytes per palette entry
-* alpha values in the palette data
-* block-based image storage
-* RLE compression for the recovered image blocks
+- 8-bit indexed color
+- 256-entry palettes
+- four stored bytes per palette entry
+- alpha values in the palette data
+- block-based image storage
+- RLE compression for the recovered image blocks
 
 For the recovered RLE blocks, encoding identifier `0` was observed.
 
 Decoded image values are palette indices that are expanded into RGBA output.
 
+## `_C` Metadata
 
-
-## `\_C` Metadata
-
-Ten recovered containers contain the same `\_C` metadata payload.
+Ten recovered containers contain the same `_C` metadata payload.
 
 Observed converter text:
 
 ```text
-online convert 0.1.4\_2025-09-01
+online convert 0.1.4_2025-09-01
 ```
 
 Observed fields include:
 
 ```text
-field\_1 = 1
-text\_length = 31
+field_1 = 1
+text_length = 31
 ```
 
-The meaning of `field\_1` has not been established.
+The meaning of `field_1` has not been established.
 
-v0.1.0 therefore preserves it under the neutral name `field\_1` instead of assigning it an undocumented semantic meaning.
-
-
+v0.1.0 therefore preserves it under the neutral name `field_1` instead of assigning it an undocumented semantic meaning.
 
 ## Validated Format Scope
 
@@ -309,9 +283,7 @@ This release implements the EAF behavior required by the recovered Spooky animat
 
 The format observations in this project should not yet be treated as a complete specification for every possible EAF variant.
 
-In particular, v0.1.0's validated image-decoding scope is the 8-bit indexed, RLE-compressed `\_S` data present in the recovered Spooky animations.
-
-
+In particular, v0.1.0's validated image-decoding scope is the 8-bit indexed, RLE-compressed `_S` data present in the recovered Spooky animations.
 
 ## Building From Source
 
@@ -337,8 +309,8 @@ The release process produces:
 
 ```text
 dist/
-├── spooky\_eaf-0.1.0-py3-none-any.whl
-└── spooky\_eaf-0.1.0.tar.gz
+â”œâ”€â”€ spooky_eaf-0.1.0-py3-none-any.whl
+â””â”€â”€ spooky_eaf-0.1.0.tar.gz
 ```
 
 ## Release Packaging
@@ -396,7 +368,6 @@ spooky-eaf-v0.1.0.zip
 
 Because packaging metadata and documentation affect distribution bytes, the checksums from the final successful packaging run should be treated as authoritative.
 
-\---
+---
 
 `spooky-eaf v0.1.0` establishes the first frozen and regression-tested baseline for continued Spooky EAF recovery and format research.
-
