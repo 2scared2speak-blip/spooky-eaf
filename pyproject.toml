@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spooky-eaf"
+version = "0.2.0"
+description = "CLI for scanning, inspecting, decoding, and recovering Espressif EAF animations"
+requires-python = ">=3.10"
+dependencies = [
+    "Pillow>=10",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=9",
+]
+
+dev = [
+    "pytest>=9",
+    "build",
+]
+
+[project.scripts]
+spooky-eaf = "spooky_eaf.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
